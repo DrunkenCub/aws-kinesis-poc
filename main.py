@@ -7,9 +7,19 @@ def on_flush(count, last_flushed_at, Data=b'', PartitionKey='', Metadata=()):
         Last message was {Metadata['id']} paritioned by {PartitionKey} ({len(Data)} bytes)
     """)
 
-p = KinesisProducer('stream-name', flush_callback=on_flush)
+def publish():
+    p = KinesisProducer('starwars_datastream', flush_callback=on_flush)
 
-for i in range(10000):
-    p.put_record(i, metadata={'id': uuid4()}, partition_key=1)
+    for i in range(1000):
 
-p.close()
+        someDict = {
+            'name': 'bandara',
+            'id': str(uuid4),
+        }
+
+        p.put_record(someDict, metadata={'id': uuid4()}, partition_key='1')
+
+    p.close()
+
+
+publish()
