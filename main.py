@@ -8,13 +8,13 @@ def on_flush(count, last_flushed_at, Data=b'', PartitionKey='', Metadata=()):
     """)
 
 def publish():
-    p = KinesisProducer('starwars_datastream', flush_callback=on_flush)
+    p = KinesisProducer('wiley_stream', flush_callback=on_flush)
 
     for i in range(1000):
 
         someDict = {
             'name': 'bandara',
-            'id': str(uuid4),
+            'id': str(uuid4()),
         }
 
         p.put_record(someDict, metadata={'id': uuid4()}, partition_key='1')
